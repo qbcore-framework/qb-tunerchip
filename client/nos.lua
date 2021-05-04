@@ -211,23 +211,25 @@ RegisterNetEvent('nitrous:client:SyncFlames')
 AddEventHandler('nitrous:client:SyncFlames', function(netid, nosid)
     local veh = NetToVeh(netid)
     local myid = GetPlayerServerId(PlayerId())
-    if NOSPFX[GetVehicleNumberPlateText(veh)] == nil then
-        NOSPFX[GetVehicleNumberPlateText(veh)] = {}
-    end
-    if myid ~= nosid then
-        for _,bones in pairs(p_flame_location) do
-            if NOSPFX[GetVehicleNumberPlateText(veh)][bones] == nil then
-                NOSPFX[GetVehicleNumberPlateText(veh)][bones] = {}
-            end
-            if GetEntityBoneIndexByName(veh, bones) ~= -1 then
-                if NOSPFX[GetVehicleNumberPlateText(veh)][bones].pfx == nil then
-                    RequestNamedPtfxAsset(ParticleDict)
-                    while not HasNamedPtfxAssetLoaded(ParticleDict) do
-                        Citizen.Wait(0)
+    if veh then
+        if NOSPFX[GetVehicleNumberPlateText(veh)] == nil then
+            NOSPFX[GetVehicleNumberPlateText(veh)] = {}
+        end
+        if myid ~= nosid then
+            for _,bones in pairs(p_flame_location) do
+                if NOSPFX[GetVehicleNumberPlateText(veh)][bones] == nil then
+                    NOSPFX[GetVehicleNumberPlateText(veh)][bones] = {}
+                end
+                if GetEntityBoneIndexByName(veh, bones) ~= -1 then
+                    if NOSPFX[GetVehicleNumberPlateText(veh)][bones].pfx == nil then
+                        RequestNamedPtfxAsset(ParticleDict)
+                        while not HasNamedPtfxAssetLoaded(ParticleDict) do
+                            Citizen.Wait(0)
+                        end
+                        SetPtfxAssetNextCall(ParticleDict)
+                        UseParticleFxAssetNextCall(ParticleDict)
+                        NOSPFX[GetVehicleNumberPlateText(veh)][bones].pfx = StartParticleFxLoopedOnEntityBone(ParticleFx, veh, 0.0, -0.05, 0.0, 0.0, 0.0, 0.0, GetEntityBoneIndexByName(veh, bones), ParticleSize, 0.0, 0.0, 0.0)
                     end
-                    SetPtfxAssetNextCall(ParticleDict)
-                    UseParticleFxAssetNextCall(ParticleDict)
-                    NOSPFX[GetVehicleNumberPlateText(veh)][bones].pfx = StartParticleFxLoopedOnEntityBone(ParticleFx, veh, 0.0, -0.05, 0.0, 0.0, 0.0, 0.0, GetEntityBoneIndexByName(veh, bones), ParticleSize, 0.0, 0.0, 0.0)
                 end
             end
         end
