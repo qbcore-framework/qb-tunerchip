@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 
 .container {
     height: 100vh;
@@ -113,7 +113,7 @@
     border: none;
     border-bottom: 2px solid rgb(127, 119, 192);
     text-align: center;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1.1vh;
@@ -178,7 +178,7 @@ height: 40vh; */
     color: white;
     font-size: 1vh;
     text-transform: uppercase;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
     letter-spacing: 0.1vh;
     line-height: 3vh;
@@ -243,7 +243,7 @@ height: 40vh; */
 }
 
 #slider-titel {
-    font-family: 'Lato';
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 1vh;
     letter-spacing: 0.15vh;
@@ -252,7 +252,7 @@ height: 40vh; */
 }
 
 .neon-software-color-pallete > p {
-    font-family: 'Lato';
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 1vh;
     letter-spacing: 0.15vh;
@@ -261,7 +261,7 @@ height: 40vh; */
 }
 
 .neon-software-color-pallete-presets > p {
-    font-family: 'Lato';
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 1vh;
     letter-spacing: 0.15vh;
@@ -270,7 +270,7 @@ height: 40vh; */
 }
 
 .headlights-software-color-pallete-currentcolor > p {
-    font-family: 'Lato';
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 1vh;
     letter-spacing: 0.15vh;
@@ -279,7 +279,7 @@ height: 40vh; */
 }
 
 .headlights-software-color-pallete-presets > p {
-    font-family: 'Lato';
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 1vh;
     letter-spacing: 0.15vh;
