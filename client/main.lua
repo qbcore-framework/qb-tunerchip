@@ -1,7 +1,6 @@
 local inTuner = false
 local RainbowNeon = false
-
-LastEngineMultiplier = 1.0
+local LastEngineMultiplier = 1.0
 
 function setVehData(veh,data)
     local multp = 0.12
