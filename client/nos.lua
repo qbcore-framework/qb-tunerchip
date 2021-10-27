@@ -15,36 +15,38 @@ end)
 RegisterNetEvent('smallresource:client:LoadNitrous')
 AddEventHandler('smallresource:client:LoadNitrous', function()
     local IsInVehicle = IsPedInAnyVehicle(PlayerPedId())
-    --local veh = GetVehiclePedIsIn(PlayerPedId())
     local ped = PlayerPedId()
     local veh = GetVehiclePedIsIn(ped)
 
     if not NitrousActivated then
-        if IsInVehicle and not IsThisModelABike(GetEntityModel(GetVehiclePedIsIn(ped))) then
-            if GetPedInVehicleSeat(veh, -1) == ped then
-                QBCore.Functions.Progressbar("use_nos", "Connecting NOS...", 1000, false, true, {
-                    disableMovement = false,
-                    disableCarMovement = false,
-                    disableMouse = false,
-                    disableCombat = true,
-                }, {}, {}, {}, function() -- Done
-                    TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items['nitrous'], "remove")
-                    TriggerServerEvent("QBCore:Server:RemoveItem", 'nitrous', 1)
-                    local CurrentVehicle = GetVehiclePedIsIn(PlayerPedId())
-                    local Plate = GetVehicleNumberPlateText(CurrentVehicle)
-                    TriggerServerEvent('nitrous:server:LoadNitrous', Plate)
-                end)
-            else
-                QBCore.Functions.Notify("You cannot do that from this seat!", "error")
-            end
+	if IsToggleModOn(veh, 18) then
+		if IsInVehicle and not IsThisModelABike(GetEntityModel(GetVehiclePedIsIn(ped))) then
+			if GetPedInVehicleSeat(veh, -1) == ped then
+				QBCore.Functions.Progressbar("use_nos", "Connecting NOS...", 1000, false, true, {
+					disableMovement = false,
+					disableCarMovement = false,
+					disableMouse = false,
+					disableCombat = true,
+				}, {}, {}, {}, function() -- Done
+					TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items['nitrous'], "remove")
+					TriggerServerEvent("QBCore:Server:RemoveItem", 'nitrous', 1)
+					local CurrentVehicle = GetVehiclePedIsIn(PlayerPedId())
+					local Plate = GetVehicleNumberPlateText(CurrentVehicle)
+					TriggerServerEvent('nitrous:server:LoadNitrous', Plate)
+				end)
+				else
+					QBCore.Functions.Notify("You cannot do that from this seat!", "error")
+				end
+			else
+				QBCore.Functions.Notify('You\'re Not In A Car', 'error')
+			end
         else
-            QBCore.Functions.Notify('You\'re Not In A Car', 'error')
+            QBCore.Functions.Notify('You need a Turbo to use NOS!', 'error')
         end
     else
         QBCore.Functions.Notify('You Already Have NOS Active', 'error')
     end
 end)
-
 local nosupdated = false
 
 Citizen.CreateThread(function()
