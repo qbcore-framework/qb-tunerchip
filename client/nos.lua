@@ -202,9 +202,11 @@ RegisterNetEvent('nitrous:client:SyncFlames', function(netid, nosid)
 end)
 
 RegisterNetEvent('nitrous:client:StopSync', function(plate)
-    for k, v in pairs(NOSPFX[plate]) do
-        StopParticleFxLooped(v.pfx, 1)
-        NOSPFX[plate][k].pfx = nil
+    if NOSPFX[plate] then
+        for k, v in pairs(NOSPFX[plate]) do
+            StopParticleFxLooped(v.pfx, 1)
+            NOSPFX[plate][k].pfx = nil
+        end
     end
 end)
 
