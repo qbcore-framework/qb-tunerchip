@@ -77,6 +77,7 @@ CreateThread(function()
                                         SetVehicleBoostActive(CurrentVehicle, 0)
                                         SetVehicleEnginePowerMultiplier(CurrentVehicle, LastEngineMultiplier)
                                         SetVehicleEngineTorqueMultiplier(CurrentVehicle, 1.0)
+                                        StopScreenEffect("RaceTurbo")
                                         for index,_ in pairs(Fxs) do
                                             StopParticleFxLooped(Fxs[index], 1)
                                             TriggerServerEvent('nitrous:server:StopSync', trim(GetVehicleNumberPlateText(CurrentVehicle)))
@@ -102,6 +103,7 @@ CreateThread(function()
                                 TriggerServerEvent('nitrous:server:StopSync', trim(GetVehicleNumberPlateText(veh)))
                                 Fxs[index] = nil
                             end
+                            StopScreenEffect("RaceTurbo")
                             TriggerEvent('hud:client:UpdateNitrous', VehicleNitrous[Plate].hasnitro,  VehicleNitrous[Plate].level, false)
                             NitrousActivated = false
                         end
@@ -112,11 +114,13 @@ CreateThread(function()
                     TriggerEvent('hud:client:UpdateNitrous', false, nil, false)
                     nosupdated = true
                 end
+                StopScreenEffect("RaceTurbo")
             end
         else
             if nosupdated then
                 nosupdated = false
             end
+            StopScreenEffect("RaceTurbo")
             Wait(1500)
         end
         Wait(3)
