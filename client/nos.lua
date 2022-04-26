@@ -2,6 +2,7 @@ local NitrousActivated = false
 local NitrousBoost = 35.0
 local VehicleNitrous = {}
 local Fxs = {}
+local Cooldown = false
 
 local function trim(value)
 	if not value then return nil end
@@ -56,32 +57,38 @@ CreateThread(function()
             if VehicleNitrous[Plate] ~= nil then
                 if VehicleNitrous[Plate].hasnitro then
                     if IsControlJustPressed(0, 36) and GetPedInVehicleSeat(CurrentVehicle, -1) == PlayerPedId() then
-                        SetVehicleEnginePowerMultiplier(CurrentVehicle, NitrousBoost)
-                        SetVehicleEngineTorqueMultiplier(CurrentVehicle, NitrousBoost)
-                        SetEntityMaxSpeed(CurrentVehicle, 999.0)
-                        NitrousActivated = true
-
-                        CreateThread(function()
-                            while NitrousActivated do
-                                if VehicleNitrous[Plate].level - 1 ~= 0 then
-                                    TriggerServerEvent('nitrous:server:UpdateNitroLevel', Plate, (VehicleNitrous[Plate].level - 1))
-                                    TriggerEvent('hud:client:UpdateNitrous', VehicleNitrous[Plate].hasnitro,  VehicleNitrous[Plate].level, true)
-                                else
-                                    TriggerServerEvent('nitrous:server:UnloadNitrous', Plate)
-                                    NitrousActivated = false
-                                    SetVehicleBoostActive(CurrentVehicle, 0)
-                                    SetVehicleEnginePowerMultiplier(CurrentVehicle, LastEngineMultiplier)
-                                    SetVehicleEngineTorqueMultiplier(CurrentVehicle, 1.0)
-                                    StopScreenEffect("RaceTurbo")
-                                    for index,_ in pairs(Fxs) do
-                                        StopParticleFxLooped(Fxs[index], 1)
-                                        TriggerServerEvent('nitrous:server:StopSync', trim(GetVehicleNumberPlateText(CurrentVehicle)))
-                                        Fxs[index] = nil
+                        if not Cooldown then
+                            Cooldown = true
+                            SetVehicleEnginePowerMultiplier(CurrentVehicle, NitrousBoost)
+                            SetVehicleEngineTorqueMultiplier(CurrentVehicle, NitrousBoost)
+                            SetEntityMaxSpeed(CurrentVehicle, 999.0)
+                            NitrousActivated = true
+                            SetTimeout(5000, function()
+                                Cooldown = false
+                            end)
+                            CreateThread(function()
+                                while NitrousActivated do
+                                    if VehicleNitrous[Plate].level - 1 ~= 0 then
+                                        TriggerServerEvent('nitrous:server:UpdateNitroLevel', Plate, (VehicleNitrous[Plate].level - 1))
+                                        TriggerEvent('hud:client:UpdateNitrous', VehicleNitrous[Plate].hasnitro,  VehicleNitrous[Plate].level, true)
+                                    else
+                                        TriggerServerEvent('nitrous:server:UnloadNitrous', Plate)
+                                        NitrousActivated = false
+                                        SetVehicleBoostActive(CurrentVehicle, 0)
+                                        SetVehicleEnginePowerMultiplier(CurrentVehicle, LastEngineMultiplier)
+                                        SetVehicleEngineTorqueMultiplier(CurrentVehicle, 1.0)
+                                        for index,_ in pairs(Fxs) do
+                                            StopParticleFxLooped(Fxs[index], 1)
+                                            TriggerServerEvent('nitrous:server:StopSync', trim(GetVehicleNumberPlateText(CurrentVehicle)))
+                                            Fxs[index] = nil
+                                        end
                                     end
+                                    Wait(100)
                                 end
-                                Wait(100)
-                            end
-                        end)
+                            end)
+                        else
+                            QBCore.Functions.Notify('Not that fast!', 'error')
+                        end
                     end
 
                     if IsControlJustReleased(0, 36) and GetPedInVehicleSeat(CurrentVehicle, -1) == PlayerPedId() then
@@ -95,7 +102,6 @@ CreateThread(function()
                                 TriggerServerEvent('nitrous:server:StopSync', trim(GetVehicleNumberPlateText(veh)))
                                 Fxs[index] = nil
                             end
-                            StopScreenEffect("RaceTurbo")
                             TriggerEvent('hud:client:UpdateNitrous', VehicleNitrous[Plate].hasnitro,  VehicleNitrous[Plate].level, false)
                             NitrousActivated = false
                         end
@@ -106,13 +112,11 @@ CreateThread(function()
                     TriggerEvent('hud:client:UpdateNitrous', false, nil, false)
                     nosupdated = true
                 end
-                StopScreenEffect("RaceTurbo")
             end
         else
             if nosupdated then
                 nosupdated = false
             end
-            StopScreenEffect("RaceTurbo")
             Wait(1500)
         end
         Wait(3)
