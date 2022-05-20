@@ -84,7 +84,7 @@ CreateThread(function()
                         end)
                     end
 
-                    if IsControlJustReleased(0, 36) and GetPedInVehicleSeat(CurrentVehicle, -1) == PlayerPedId() then
+                    if IsDisabledControlJustReleased(0, 36) and GetPedInVehicleSeat(CurrentVehicle, -1) == PlayerPedId() then
                         if NitrousActivated then
                             local veh = GetVehiclePedIsIn(PlayerPedId())
                             SetVehicleBoostActive(veh, 0)
