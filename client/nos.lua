@@ -55,7 +55,7 @@ CreateThread(function()
             local Plate = trim(GetVehicleNumberPlateText(CurrentVehicle))
             if VehicleNitrous[Plate] ~= nil then
                 if VehicleNitrous[Plate].hasnitro then
-                    if IsControlJustPressed(0, 36) and GetPedInVehicleSeat(CurrentVehicle, -1) == PlayerPedId() then
+                    if IsDisabledControlJustPressed(0, 36) and GetPedInVehicleSeat(CurrentVehicle, -1) == PlayerPedId() then
                         SetVehicleEnginePowerMultiplier(CurrentVehicle, NitrousBoost)
                         SetVehicleEngineTorqueMultiplier(CurrentVehicle, NitrousBoost)
                         SetEntityMaxSpeed(CurrentVehicle, 999.0)
@@ -84,7 +84,7 @@ CreateThread(function()
                         end)
                     end
 
-                    if IsControlJustReleased(0, 36) and GetPedInVehicleSeat(CurrentVehicle, -1) == PlayerPedId() then
+                    if IsDisabledControlJustReleased(0, 36) and GetPedInVehicleSeat(CurrentVehicle, -1) == PlayerPedId() then
                         if NitrousActivated then
                             local veh = GetVehiclePedIsIn(PlayerPedId())
                             SetVehicleBoostActive(veh, 0)
