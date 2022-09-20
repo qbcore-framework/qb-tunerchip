@@ -29,7 +29,7 @@ RegisterNetEvent('smallresource:client:LoadNitrous', function()
                     disableCombat = true,
                 }, {}, {}, {}, function() -- Done
                     TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items['nitrous'], "remove")
-                    TriggerServerEvent("QBCore:Server:RemoveItem", 'nitrous', 1)
+                    TriggerServerEvent("nitrous:server:removeItem")
                     local CurrentVehicle = GetVehiclePedIsIn(PlayerPedId())
                     local Plate = trim(GetVehicleNumberPlateText(CurrentVehicle))
                     TriggerServerEvent('nitrous:server:LoadNitrous', Plate)
