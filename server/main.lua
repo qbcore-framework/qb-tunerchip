@@ -21,7 +21,7 @@ QBCore.Functions.CreateCallback('qb-tunerchip:server:HasChip', function(source, 
     if Chip ~= nil then
         cb(true)
     else
-        DropPlayer(src, 'This is not the idea, is it?')
+        DropPlayer(src, Lang:t("text.this_is_not_the_idea_is_it"))
         cb(true)
     end
 end)
