@@ -57,12 +57,11 @@ end)
 
 RegisterNUICallback('checkItem', function(data, cb)
     local retval = false
-    QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
-        if result then
-            retval = true
-        end
-        cb(retval)
-    end, data.item)
+    local result = QBCore.Functions.HasItem(data.item)
+    if result then
+        retval = true
+    end
+    cb(retval)
 end)
 
 RegisterNUICallback('reset', function(_, cb)
