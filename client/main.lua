@@ -34,7 +34,7 @@ RegisterNUICallback('save', function(data, cb)
             TriggerServerEvent('qb-tunerchip:server:TuneStatus', QBCore.Functions.GetPlate(veh), true)
         end
         cb('ok')
-    end)
+    end, data)
 end)
 
 RegisterNetEvent('qb-tunerchip:client:TuneStatus', function()

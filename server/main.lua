@@ -13,11 +13,15 @@ RegisterNetEvent('qb-tunerchip:server:TuneStatus', function(plate, bool)
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-tunerchip:server:HasChip', function(source, cb)
+QBCore.Functions.CreateCallback('qb-tunerchip:server:HasChip', function(source, cb, data)
     local src = source
     local Ply = QBCore.Functions.GetPlayer(src)
     local Chip = Ply.Functions.GetItemByName('tunerlaptop')
-
+    if data then
+        for k,v in pairs(data) do
+            if Threashold[k].min > tonumber(v) or Threashold[k].max < tonumber(v) then Chip = nil end
+        end
+    end
     if Chip ~= nil then
         cb(true)
     else
