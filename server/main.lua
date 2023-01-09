@@ -29,12 +29,9 @@ QBCore.Functions.CreateCallback('qb-tunerchip:server:HasChip', function(source, 
             if Threashold[k].min > tonumber(v) or Threashold[k].max < tonumber(v) then Chip = nil end
         end
     end
-    if Chip ~= nil then
-        cb(true)
-    else
-        DropPlayer(src, Lang:t("text.this_is_not_the_idea_is_it"))
-        cb(true)
-    end
+    if Chip then cb(true) end
+    DropPlayer(src, Lang:t("text.this_is_not_the_idea_is_it"))
+    cb(false)
 end)
 
 QBCore.Functions.CreateCallback('qb-tunerchip:server:GetStatus', function(_, cb, plate)
