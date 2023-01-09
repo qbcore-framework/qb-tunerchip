@@ -1,5 +1,12 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local tunedVehicles = {}
+local Threashold = {
+    ['boost'] = {min = 1, max = 5},
+    ['acceleration'] = {min = 1, max = 5},
+    ['gearchange'] = {min = 1, max = 5},
+    ['breaking'] = {min = 1, max = 5},
+    ['drivetrain'] = {min = 1, max = 3},
+}
 
 QBCore.Functions.CreateUseableItem("tunerlaptop", function(source)
     TriggerClientEvent('qb-tunerchip:client:openChip', source)
