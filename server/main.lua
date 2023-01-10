@@ -1,6 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local tunedVehicles = {}
-local Threashold = {
+local Threshold = {
     ['boost'] = {min = 1, max = 5},
     ['acceleration'] = {min = 1, max = 5},
     ['gearchange'] = {min = 1, max = 5},
@@ -26,7 +26,7 @@ QBCore.Functions.CreateCallback('qb-tunerchip:server:HasChip', function(source, 
     local Chip = Ply.Functions.GetItemByName('tunerlaptop')
     if data then
         for k,v in pairs(data) do
-            if Threashold[k].min > tonumber(v) or Threashold[k].max < tonumber(v) then Chip = nil end
+            if Threshold[k].min > tonumber(v) or Threshold[k].max < tonumber(v) then Chip = nil end
         end
     end
     if Chip then cb(true) end
