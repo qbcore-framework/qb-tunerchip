@@ -1,7 +1,7 @@
 local NitrousActivated = false
 local Cooldown = false
 local NitrousBoost = 35.0
-local NitrousCoolDownTimer = 5
+local NitrousCoolDownTimer = 5 -- Change time of cooldown in seconds
 local VehicleNitrous = {}
 local Fxs = {}
 
