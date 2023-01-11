@@ -1,5 +1,7 @@
 local NitrousActivated = false
+local Cooldown = false
 local NitrousBoost = 35.0
+local NitrousCoolDownTimer = 5
 local VehicleNitrous = {}
 local Fxs = {}
 
@@ -56,10 +58,15 @@ CreateThread(function()
             if VehicleNitrous[Plate] ~= nil then
                 if VehicleNitrous[Plate].hasnitro then
                     if IsControlJustPressed(0, 36) and GetPedInVehicleSeat(CurrentVehicle, -1) == PlayerPedId() then
+                        if not Cooldown then
+                        Cooldown = true
                         SetVehicleEnginePowerMultiplier(CurrentVehicle, NitrousBoost)
                         SetVehicleEngineTorqueMultiplier(CurrentVehicle, NitrousBoost)
                         SetEntityMaxSpeed(CurrentVehicle, 999.0)
                         NitrousActivated = true
+                        SetTimeout(NitrousCoolDownTimer * 1000, function()
+                            Cooldown = false
+                        end)
 
                         CreateThread(function()
                             while NitrousActivated do
@@ -82,8 +89,10 @@ CreateThread(function()
                                 Wait(100)
                             end
                         end)
+                    else
+                        QBCore.Functions.Notify(Lang:t("error.nos_on_cooldown", {value = NitrousCoolDownTimer}), "error")
                     end
-
+                end
                     if IsControlJustReleased(0, 36) and GetPedInVehicleSeat(CurrentVehicle, -1) == PlayerPedId() then
                         if NitrousActivated then
                             local veh = GetVehiclePedIsIn(PlayerPedId())

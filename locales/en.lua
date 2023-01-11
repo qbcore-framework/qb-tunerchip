@@ -15,6 +15,7 @@ local Translations = {
         you_cannot_do_that_from_this_seat = "You cannot do that from this seat!",
         you_already_have_nos_active = "You Already Have NOS Active",
         canceled = "Canceled",
+        nos_on_cooldown = "You need to wait %{value} seconds for the NOS system to cooldown!",
     },
 }
 
