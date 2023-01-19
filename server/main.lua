@@ -29,7 +29,7 @@ QBCore.Functions.CreateCallback('qb-tunerchip:server:HasChip', function(source, 
             if Threshold[k].min > tonumber(v) or Threshold[k].max < tonumber(v) then Chip = nil end
         end
     end
-    if Chip then cb(true) end
+    if Chip then cb(true) return end
     DropPlayer(src, Lang:t("text.this_is_not_the_idea_is_it"))
     cb(false)
 end)
