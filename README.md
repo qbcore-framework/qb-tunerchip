@@ -43,4 +43,5 @@ Vehicle Tuning System for QB-Core Framework ::
 ensure qb-core
 ensure qb-hud
 ensure qb-tunerchip
+ensure vstancer
 ```
