@@ -23,6 +23,7 @@ Vehicle Tuning System for QB-Core Framework ::
 ## Dependencies
 - [qb-core](https://github.com/qbcore-framework/qb-core)
 - [qb-hud](https://github.com/qbcore-framework/qb-hud) - For NOS status display
+- [vstancer](https://github.com/carmineos/fivem-vstancer) - To use Stancer
 
 ## Screenshots
 ![Tunerchip](https://imgur.com/1NbUqXc.png)
@@ -42,4 +43,5 @@ Vehicle Tuning System for QB-Core Framework ::
 ensure qb-core
 ensure qb-hud
 ensure qb-tunerchip
+ensure vstancer
 ```
